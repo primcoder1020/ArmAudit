@@ -1,10 +1,7 @@
 "use client"
 
-import React from "react"
-import { ThreatIntelligence } from "@/components/threat-intelligence"
+import { redirect } from "next/navigation"
 
 export default function ThreatIntelligencePage() {
-  return (
-    <ThreatIntelligence />
-  )
-} 
+  redirect("/threat-intelligence/ioc-lookup")
+}
