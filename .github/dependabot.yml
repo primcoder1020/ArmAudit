@@ -1,0 +1,79 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "@admins"
+    assignees:
+      - "@developers"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
+    # Group updates for related packages
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react*"
+          - "@types/react*"
+      material-ui:
+        patterns:
+          - "@mui/*"
+          - "@emotion/*"
+      radix-ui:
+        patterns:
+          - "@radix-ui/*"
+      development-dependencies:
+        dependency-type: "development"
+        patterns:
+          - "@types/*"
+          - "typescript"
+          - "eslint*"
+    # Security updates
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    # Ignore specific packages if needed
+    ignore:
+      - dependency-name: "next"
+        # Only allow patch and minor updates for Next.js
+        update-types: ["version-update:semver-major"]
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "github-actions"
+      - "ci/cd"
+
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "docker"
+      include: "scope"
+    labels:
+      - "docker"
+      - "infrastructure" 

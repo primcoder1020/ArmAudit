@@ -1,0 +1,182 @@
+name: Security Scanning
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly security scans on Sundays at 2 AM UTC
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+jobs:
+  # Secret Scanning
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run TruffleHog OSS
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
+          extra_args: --debug --only-verified
+
+  # SAST (Static Application Security Testing)
+  sast-scan:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript, typescript
+          queries: security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  # Dependency Vulnerability Scanning
+  dependency-scan:
+    name: Dependency Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run npm audit
+        run: |
+          npm audit --audit-level=high --json > npm-audit.json || true
+          if [ -s npm-audit.json ]; then
+            echo "High severity vulnerabilities found!"
+            cat npm-audit.json
+            exit 1
+          fi
+
+      - name: Run Snyk test
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --json > snyk-report.json
+        continue-on-error: true
+
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snyk-security-report
+          path: snyk-report.json
+
+  # License Compliance
+  license-scan:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install license checker
+        run: npm install -g license-checker
+
+      - name: Check licenses
+        run: |
+          license-checker --json --production > licenses.json
+          echo "## License Compliance Report" >> $GITHUB_STEP_SUMMARY
+          echo "Generated on: $(date)" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Upload license report
+        uses: actions/upload-artifact@v4
+        with:
+          name: license-report
+          path: licenses.json
+
+  # Docker Security Scanning
+  docker-security:
+    name: Docker Security Scan
+    runs-on: ubuntu-latest
+    if: github.event_name != 'schedule'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image for scanning
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: armaudit:security-scan
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'armaudit:security-scan'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Generate Security Report
+  security-report:
+    name: Generate Security Report
+    runs-on: ubuntu-latest
+    needs: [secret-scan, sast-scan, dependency-scan, license-scan]
+    if: always()
+    steps:
+      - name: Generate security summary
+        run: |
+          echo "# 🔐 Security Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Scan Results:" >> $GITHUB_STEP_SUMMARY
+          echo "- **Secret Detection**: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Static Analysis**: ${{ needs.sast-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dependency Scan**: ${{ needs.dependency-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **License Check**: ${{ needs.license-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📅 Scan completed on: $(date)" >> $GITHUB_STEP_SUMMARY 

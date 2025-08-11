@@ -1,0 +1,82 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  dependency-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: |
+          npm audit --audit-level=moderate --json > audit-report.json || true
+          
+      - name: Check for vulnerabilities
+        run: |
+          if [ -s audit-report.json ]; then
+            echo "Security vulnerabilities found!"
+            cat audit-report.json
+            exit 1
+          else
+            echo "No security vulnerabilities found."
+          fi
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: security-audit-report
+          path: audit-report.json
+
+  dependency-check:
+    name: Dependency Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Check for outdated packages
+        run: |
+          npm outdated --json > outdated-report.json || true
+          
+      - name: Generate dependency report
+        run: |
+          echo "## Dependency Status Report" >> $GITHUB_STEP_SUMMARY
+          echo "Generated on: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -s outdated-report.json ]; then
+            echo "### Outdated Dependencies Found" >> $GITHUB_STEP_SUMMARY
+            echo "Please review and update dependencies." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ✅ All Dependencies Up to Date" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload dependency report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-report
+          path: outdated-report.json 
