@@ -11,10 +11,8 @@ const nextConfig = {
   },
   // Enable standalone output for Docker
   output: 'standalone',
-  // Enable experimental features for better performance
-  experimental: {
-    serverComponentsExternalPackages: ['@mui/material'],
-  },
+  // External packages for server-side rendering
+  serverExternalPackages: ['@mui/x-date-pickers'],
   // Environment-specific configurations
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
