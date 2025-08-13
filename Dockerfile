@@ -11,7 +11,7 @@ COPY package*.json ./
 COPY pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+RUN npm ci --only=production --legacy-peer-deps && npm cache clean --force
 
 # Stage 2: Builder
 FROM node:20-alpine AS builder
