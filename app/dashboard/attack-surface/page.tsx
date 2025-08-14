@@ -56,9 +56,8 @@ export default function AttackSurfacePage() {
                 />
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
       {/* Recent Findings */}
       <Card>
