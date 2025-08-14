@@ -134,11 +134,16 @@ jobs:
         run: npm install --save-dev @next/bundle-analyzer
 
       - name: Build with bundle analysis
-        run: |
-          npm run build
-          npx next-bundle-analyzer
+        run: npm run build
         env:
           ANALYZE: true
+
+      - name: Upload bundle analysis reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis-reports
+          path: .next/analyze/
+          retention-days: 30
 
   # Docker Build
   docker-build:
