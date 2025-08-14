@@ -117,10 +117,10 @@ export function AssetInventory() {
               },
             }}
           >
-            {label}
+            {typeof label === 'string' ? label : ''}
             {count !== "0" && (
               <Chip
-                label={count}
+                label={typeof count === 'string' ? count : ''}
                 size="small"
                 sx={{
                   bgcolor: color,
