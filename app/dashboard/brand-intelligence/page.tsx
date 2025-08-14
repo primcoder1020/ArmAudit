@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, Avatar } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip, Avatar } from "@mui/material"
 import { Visibility, TrendingUp, Warning, Public } from "@mui/icons-material"
 
 export default function BrandIntelligencePage() {
@@ -65,10 +65,9 @@ export default function BrandIntelligencePage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {brandStats.map((item, index) => (
-          <Grid xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
+          <Card key={index} sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
                   <Typography variant="h5" sx={{ fontWeight: 600, color: item.color }}>
@@ -89,13 +88,12 @@ export default function BrandIntelligencePage() {
                 </Typography>
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Brand Threats */}
-        <Grid xs={12} md={8}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -136,10 +134,10 @@ export default function BrandIntelligencePage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         {/* Social Media Monitoring */}
-        <Grid xs={12} md={4}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -180,8 +178,8 @@ export default function BrandIntelligencePage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }

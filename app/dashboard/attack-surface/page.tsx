@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
-import { Box, Typography, Card, CardContent, Chip, LinearProgress } from "@mui/material"
-import { Security, Public, Warning, TrendingUp } from "@mui/icons-material"
+import { Security } from "@mui/icons-material"
+import { Box, Card, CardContent, Chip, Typography } from "@mui/material"
 
 export default function AttackSurfacePage() {
   const attackSurfaceData = [
@@ -35,27 +34,27 @@ export default function AttackSurfacePage() {
       <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {attackSurfaceData.map((item, index) => (
           <Card key={index} sx={{ height: "100%" }}>
-              <CardContent>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <Security sx={{ color: item.color, mr: 1 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    {item.count}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
-                  {item.title}
+            <CardContent>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                <Security sx={{ color: item.color, mr: 1 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  {item.count}
                 </Typography>
-                <Chip 
-                  label={item.risk} 
-                  size="small" 
-                  sx={{ 
-                    bgcolor: item.color, 
-                    color: "white",
-                    fontSize: "11px"
-                  }} 
-                />
-              </CardContent>
-            </Card>
+              </Box>
+              <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
+                {item.title}
+              </Typography>
+              <Chip
+                label={item.risk}
+                size="small"
+                sx={{
+                  bgcolor: item.color,
+                  color: "white",
+                  fontSize: "11px"
+                }}
+              />
+            </CardContent>
+          </Card>
         ))}
       </Box>
 
@@ -66,9 +65,9 @@ export default function AttackSurfacePage() {
             Recent Security Findings
           </Typography>
           {recentFindings.map((finding, index) => (
-            <Box key={index} sx={{ 
-              display: "flex", 
-              justifyContent: "space-between", 
+            <Box key={index} sx={{
+              display: "flex",
+              justifyContent: "space-between",
               alignItems: "center",
               py: 2,
               borderBottom: index < recentFindings.length - 1 ? "1px solid #e5e7eb" : "none"
@@ -81,12 +80,12 @@ export default function AttackSurfacePage() {
                   {finding.issue}
                 </Typography>
               </Box>
-              <Chip 
+              <Chip
                 label={finding.severity}
                 size="small"
                 sx={{
-                  bgcolor: finding.severity === "Critical" ? "#ef4444" : 
-                           finding.severity === "High" ? "#f59e0b" : "#22c55e",
+                  bgcolor: finding.severity === "Critical" ? "#ef4444" :
+                    finding.severity === "High" ? "#f59e0b" : "#22c55e",
                   color: "white"
                 }}
               />

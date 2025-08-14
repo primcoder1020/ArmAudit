@@ -1,7 +1,7 @@
 "use client"
 
 import { Security } from "@mui/icons-material"
-import { Box, Card, CardContent, Chip, Typography, Grid } from "@mui/material"
+import { Box, Card, CardContent, Chip, Typography } from "@mui/material"
 
 export default function AttackSurfacePage() {
   const attackSurfaceData = [
@@ -44,14 +44,14 @@ export default function AttackSurfacePage() {
               <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
                 {item.title}
               </Typography>
-              <Chip 
-                label={item.risk} 
-                size="small" 
-                sx={{ 
-                  bgcolor: item.color, 
+              <Chip
+                label={item.risk}
+                size="small"
+                sx={{
+                  bgcolor: item.color,
                   color: "white",
                   fontSize: "11px"
-                }} 
+                }}
               />
             </CardContent>
           </Card>
@@ -65,9 +65,9 @@ export default function AttackSurfacePage() {
             Recent Security Findings
           </Typography>
           {recentFindings.map((finding, index) => (
-            <Box key={index} sx={{ 
-              display: "flex", 
-              justifyContent: "space-between", 
+            <Box key={index} sx={{
+              display: "flex",
+              justifyContent: "space-between",
               alignItems: "center",
               py: 2,
               borderBottom: index < recentFindings.length - 1 ? "1px solid #e5e7eb" : "none"
@@ -80,12 +80,12 @@ export default function AttackSurfacePage() {
                   {finding.issue}
                 </Typography>
               </Box>
-              <Chip 
+              <Chip
                 label={finding.severity}
                 size="small"
                 sx={{
-                  bgcolor: finding.severity === "Critical" ? "#ef4444" : 
-                           finding.severity === "High" ? "#f59e0b" : "#22c55e",
+                  bgcolor: finding.severity === "Critical" ? "#ef4444" :
+                    finding.severity === "High" ? "#f59e0b" : "#22c55e",
                   color: "white"
                 }}
               />
