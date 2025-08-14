@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, LinearProgress } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip, LinearProgress } from "@mui/material"
 import { Security, VideoLibrary, Image, Warning } from "@mui/icons-material"
 
 export default function DeepFakePage() {
@@ -56,10 +56,9 @@ export default function DeepFakePage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {detectionStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
+          <Card key={index} sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   {index === 0 && <VideoLibrary sx={{ color: item.color, mr: 1 }} />}
@@ -93,9 +92,8 @@ export default function DeepFakePage() {
                 </Box>
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
       {/* Upload Area */}
       <Card sx={{ mb: 4 }}>

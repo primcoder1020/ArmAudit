@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, LinearProgress } from "@mui/material"
-import { Cloud, Security, Warning, CheckCircle } from "@mui/icons-material"
+import { CheckCircle, Cloud, Security, Warning } from "@mui/icons-material"
+import { Box, Card, CardContent, Chip, LinearProgress, Typography } from "@mui/material"
 
 export default function CloudSecurityPage() {
   const cloudStats = [
@@ -19,21 +18,21 @@ export default function CloudSecurityPage() {
   ]
 
   const securityFindings = [
-    { 
-      resource: "s3-bucket-prod-data", 
-      issue: "Public read access enabled", 
+    {
+      resource: "s3-bucket-prod-data",
+      issue: "Public read access enabled",
       severity: "Critical",
       provider: "AWS"
     },
-    { 
-      resource: "vm-web-server-01", 
-      issue: "Outdated security patches", 
+    {
+      resource: "vm-web-server-01",
+      issue: "Outdated security patches",
       severity: "High",
       provider: "Azure"
     },
-    { 
-      resource: "gke-cluster-staging", 
-      issue: "Network policy not configured", 
+    {
+      resource: "gke-cluster-staging",
+      issue: "Network policy not configured",
       severity: "Medium",
       provider: "GCP"
     },
@@ -52,59 +51,57 @@ export default function CloudSecurityPage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {cloudStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
-              <CardContent>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {index === 0 && <Cloud sx={{ color: item.color, mr: 1 }} />}
-                  {index === 1 && <Warning sx={{ color: item.color, mr: 1 }} />}
-                  {index === 2 && <CheckCircle sx={{ color: item.color, mr: 1 }} />}
-                  {index === 3 && <Security sx={{ color: item.color, mr: 1 }} />}
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    {item.count.toLocaleString()}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: "#6b7280", mb: 2 }}>
-                  {item.title}
+          <Card key={index} sx={{ height: "100%" }}>
+            <CardContent>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                {index === 0 && <Cloud sx={{ color: item.color, mr: 1 }} />}
+                {index === 1 && <Warning sx={{ color: item.color, mr: 1 }} />}
+                {index === 2 && <CheckCircle sx={{ color: item.color, mr: 1 }} />}
+                {index === 3 && <Security sx={{ color: item.color, mr: 1 }} />}
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  {item.count.toLocaleString()}
                 </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <LinearProgress 
-                    variant="determinate" 
-                    value={item.compliance} 
-                    sx={{ 
-                      flex: 1, 
-                      height: 6, 
-                      borderRadius: 3,
-                      bgcolor: "#e5e7eb",
-                      "& .MuiLinearProgress-bar": {
-                        bgcolor: item.color
-                      }
-                    }} 
-                  />
-                  <Typography variant="caption" sx={{ color: "#6b7280" }}>
-                    {item.compliance}%
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
+              </Box>
+              <Typography variant="body2" sx={{ color: "#6b7280", mb: 2 }}>
+                {item.title}
+              </Typography>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <LinearProgress
+                  variant="determinate"
+                  value={item.compliance}
+                  sx={{
+                    flex: 1,
+                    height: 6,
+                    borderRadius: 3,
+                    bgcolor: "#e5e7eb",
+                    "& .MuiLinearProgress-bar": {
+                      bgcolor: item.color
+                    }
+                  }}
+                />
+                <Typography variant="caption" sx={{ color: "#6b7280" }}>
+                  {item.compliance}%
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 2fr' }, gap: 3 }}>
         {/* Cloud Providers */}
-        <Grid item xs={12} md={4}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
                 Cloud Providers
               </Typography>
               {cloudProviders.map((provider, index) => (
-                <Box key={index} sx={{ 
-                  display: "flex", 
-                  justifyContent: "space-between", 
+                <Box key={index} sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
                   alignItems: "center",
                   py: 2,
                   borderBottom: index < cloudProviders.length - 1 ? "1px solid #e5e7eb" : "none"
@@ -117,7 +114,7 @@ export default function CloudSecurityPage() {
                       {provider.resources} resources • {provider.compliance}% compliant
                     </Typography>
                   </Box>
-                  <Chip 
+                  <Chip
                     label={provider.status}
                     size="small"
                     sx={{
@@ -129,17 +126,17 @@ export default function CloudSecurityPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         {/* Security Findings */}
-        <Grid item xs={12} md={8}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
                 Recent Security Findings
               </Typography>
               {securityFindings.map((finding, index) => (
-                <Box key={index} sx={{ 
+                <Box key={index} sx={{
                   p: 2,
                   border: "1px solid #e5e7eb",
                   borderRadius: 1,
@@ -156,18 +153,18 @@ export default function CloudSecurityPage() {
                       </Typography>
                     </Box>
                     <Box sx={{ display: "flex", gap: 1 }}>
-                      <Chip 
+                      <Chip
                         label={finding.provider}
                         size="small"
                         variant="outlined"
                         sx={{ fontSize: "10px" }}
                       />
-                      <Chip 
+                      <Chip
                         label={finding.severity}
                         size="small"
                         sx={{
-                          bgcolor: finding.severity === "Critical" ? "#ef4444" : 
-                                   finding.severity === "High" ? "#f59e0b" : "#22c55e",
+                          bgcolor: finding.severity === "Critical" ? "#ef4444" :
+                            finding.severity === "High" ? "#f59e0b" : "#22c55e",
                           color: "white",
                           fontSize: "10px"
                         }}
@@ -178,8 +175,8 @@ export default function CloudSecurityPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }

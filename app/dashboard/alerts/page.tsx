@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, List, ListItem, ListItemText, Avatar } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip, List, ListItem, ListItemText, Avatar } from "@mui/material"
 import { Notifications, Warning, Security, CheckCircle } from "@mui/icons-material"
 
 export default function AlertsPage() {
@@ -73,41 +73,39 @@ export default function AlertsPage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {alertStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
-              <CardContent>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {index === 0 && <Notifications sx={{ color: item.color, mr: 1 }} />}
-                  {index === 1 && <CheckCircle sx={{ color: item.color, mr: 1 }} />}
-                  {index === 2 && <Warning sx={{ color: item.color, mr: 1 }} />}
-                  {index === 3 && <Security sx={{ color: item.color, mr: 1 }} />}
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    {item.count}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
-                  {item.title}
+          <Card key={index} sx={{ height: "100%" }}>
+            <CardContent>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                {index === 0 && <Notifications sx={{ color: item.color, mr: 1 }} />}
+                {index === 1 && <CheckCircle sx={{ color: item.color, mr: 1 }} />}
+                {index === 2 && <Warning sx={{ color: item.color, mr: 1 }} />}
+                {index === 3 && <Security sx={{ color: item.color, mr: 1 }} />}
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  {item.count}
                 </Typography>
-                <Chip 
-                  label={item.priority} 
-                  size="small" 
-                  sx={{ 
-                    bgcolor: item.color, 
-                    color: "white",
-                    fontSize: "11px"
-                  }} 
-                />
-              </CardContent>
-            </Card>
-          </Grid>
+              </Box>
+              <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
+                {item.title}
+              </Typography>
+              <Chip 
+                label={item.priority} 
+                size="small" 
+                sx={{ 
+                  bgcolor: item.color, 
+                  color: "white",
+                  fontSize: "11px"
+                }} 
+              />
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Recent Alerts */}
-        <Grid item xs={12} md={8}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -156,10 +154,10 @@ export default function AlertsPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         {/* Alert Categories */}
-        <Grid item xs={12} md={4}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -182,8 +180,8 @@ export default function AlertsPage() {
               </List>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }
