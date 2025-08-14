@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, Avatar, LinearProgress } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip, Avatar, LinearProgress } from "@mui/material"
 import { Person, TrendingUp, Security, Visibility } from "@mui/icons-material"
 
 export default function ExecutiveMonitoringPage() {
@@ -98,10 +98,9 @@ export default function ExecutiveMonitoringPage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {executiveStats.map((item, index) => (
-          <Grid xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
+          <Card key={index} sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   {index === 0 && <Person sx={{ color: item.color, mr: 1 }} />}
@@ -126,13 +125,12 @@ export default function ExecutiveMonitoringPage() {
                 />
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
         {/* Executive Profiles */}
-        <Grid xs={12} md={6}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -181,13 +179,13 @@ export default function ExecutiveMonitoringPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         {/* Recent Alerts & Monitoring Coverage */}
-        <Grid xs={12} md={6}>
-          <Grid container spacing={3}>
+        <Box>
+          <Box sx={{ display: 'grid', gridTemplateRows: '1fr 1fr', gap: 3, height: '100%' }}>
             {/* Recent Alerts */}
-            <Grid xs={12}>
+            <Box>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -228,10 +226,10 @@ export default function ExecutiveMonitoringPage() {
                   ))}
                 </CardContent>
               </Card>
-            </Grid>
+            </Box>
 
             {/* Monitoring Coverage */}
-            <Grid xs={12}>
+            <Box>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -263,10 +261,10 @@ export default function ExecutiveMonitoringPage() {
                   ))}
                 </CardContent>
               </Card>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   )
 }

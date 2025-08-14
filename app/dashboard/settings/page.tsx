@@ -6,7 +6,6 @@ import {
   Typography, 
   Card, 
   CardContent, 
-  Grid, 
   Switch, 
   FormControlLabel,
   Button,
@@ -72,9 +71,9 @@ export default function SettingsPage() {
         </Typography>
       </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Settings Categories */}
-        <Grid xs={12} md={8}>
+        <Box>
           {settingsCategories.map((category, categoryIndex) => (
             <Card key={categoryIndex} sx={{ mb: 3 }}>
               <CardContent>
@@ -106,10 +105,10 @@ export default function SettingsPage() {
               </CardContent>
             </Card>
           ))}
-        </Grid>
+        </Box>
 
         {/* Profile & API Keys */}
-        <Grid xs={12} md={4}>
+        <Box>
           {/* User Profile */}
           <Card sx={{ mb: 3 }}>
             <CardContent>
@@ -196,8 +195,8 @@ export default function SettingsPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }

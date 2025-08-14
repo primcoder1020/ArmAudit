@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, Avatar } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip, Avatar } from "@mui/material"
 import { Warning, LocationOn, Security, Person } from "@mui/icons-material"
 
 export default function PhysicalThreatsPage() {
@@ -62,10 +62,9 @@ export default function PhysicalThreatsPage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {threatStats.map((item, index) => (
-          <Grid xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
+          <Card key={index} sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   {index === 0 && <Warning sx={{ color: item.color, mr: 1 }} />}
@@ -90,13 +89,12 @@ export default function PhysicalThreatsPage() {
                 />
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
-      <Grid container spacing={3}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' }, gap: 3 }}>
         {/* Active Incidents */}
-        <Grid xs={12} md={8}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -146,10 +144,10 @@ export default function PhysicalThreatsPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
         {/* Security Zones */}
-        <Grid xs={12} md={4}>
+        <Box>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -185,8 +183,8 @@ export default function PhysicalThreatsPage() {
               ))}
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   )
 }
