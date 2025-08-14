@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip } from "@mui/material"
+import { Box, Typography, Card, CardContent, Chip } from "@mui/material"
 import { LocationOn, Public, Security, TrendingUp } from "@mui/icons-material"
 
 export default function GeolocationPage() {
@@ -32,10 +32,9 @@ export default function GeolocationPage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {locationStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
+          <Card key={index} sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                   <LocationOn sx={{ color: item.color, mr: 1 }} />
@@ -58,9 +57,8 @@ export default function GeolocationPage() {
                 </Typography>
               </CardContent>
             </Card>
-          </Grid>
         ))}
-      </Grid>
+      </Box>
 
       {/* Map Placeholder */}
       <Card sx={{ mb: 4 }}>
