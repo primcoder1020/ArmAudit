@@ -13,6 +13,7 @@ import {
   Settings,
   ExpandMore,
 } from "@mui/icons-material"
+import Image from "next/image"
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Box, ListItemButton } from "@mui/material"
 
 export function Sidebar() {
@@ -20,18 +21,18 @@ export function Sidebar() {
   const pathname = usePathname()
 
   const menuItems = [
-    { icon: BarChart, label: "Dashboard", path: "/dashboard/executive-insight", active: pathname.startsWith("/dashboard") },
-    { icon: Public, label: "Attack Surface", path: "/attack-surface" },
-    { icon: Visibility, label: "Threat Intelligence", path: "/threat-intelligence", active: pathname.startsWith("/threat-intelligence") },
-    { icon: People, label: "Geolocation", path: "/geolocation", hasSubmenu: true },
-    { icon: Security, label: "DeepFake", path: "/deepfake" },
-    { icon: Warning, label: "Physical Threats", path: "/physical-threats" },
-    { icon: Security, label: "Cloud Security", path: "/cloud-security" },
-    { icon: Visibility, label: "Brand Intelligence", path: "/brand-intelligence" },
-    { icon: Timeline, label: "Vulnerability Intelligence", path: "/vulnerability-intelligence" },
-    { icon: Notifications, label: "Alerts", path: "/alerts" },
-    { icon: Timeline, label: "Executive monitoring", path: "/executive-monitoring" },
-    { icon: Settings, label: "Settings", path: "/settings" },
+    { icon: <Image src="/Icons/sidebar/home-2.png" alt="Dashboard" width={24} height={24} />, label: "Dashboard", path: "/dashboard/executive-insight", active: pathname.startsWith("/dashboard") },
+    { icon: <Image src="/Icons/sidebar/message-programming.png" alt="Attack Surface" width={24} height={24} />, label: "Attack Surface", path: "/attack-surface" },
+    { icon: <Image src="/Icons/sidebar/password-check.png" alt="Threat Intelligence" width={24} height={24} />, label: "Threat Intelligence", path: "/threat-intelligence", active: pathname.startsWith("/threat-intelligence") },
+    { icon: <Image src="/Icons/sidebar/picture-frame.png" alt="Geolocation" width={24} height={24} />, label: "Geolocation", path: "/geolocation", hasSubmenu: true },
+    { icon: <Image src="/Icons/sidebar/security-user.png" alt="DeepFake" width={24} height={24} />, label: "DeepFake", path: "/deepfake" },
+    { icon: <Image src="/Icons/sidebar/heart-remove.png" alt="Physical Threats" width={24} height={24} />, label: "Physical Threats", path: "/physical-threats" },
+    { icon: <Image src="/Icons/sidebar/cloud-lightning.png" alt="Cloud Security" width={24} height={24} />, label: "Cloud Security", path: "/cloud-security" },
+    { icon: <Image src="/Icons/sidebar/flash-circle.png" alt="Brand Intelligence" width={24} height={24} />, label: "Brand Intelligence", path: "/brand-intelligence" },
+    { icon: <Image src="/Icons/sidebar/shield-search.png" alt="Vulnerability Intelligence" width={24} height={24} />, label: "Vulnerability Intelligence", path: "/vulnerability-intelligence" },
+    { icon: <Image src="/Icons/sidebar/info-circle.png" alt="Alerts" width={24} height={24} />, label: "Alerts", path: "/alerts" },
+    { icon: <Image src="/Icons/sidebar/keyboard.png" alt="Executive monitoring" width={24} height={24} />, label: "Executive monitoring", path: "/executive-monitoring" },
+    { icon: <Image src="/Icons/sidebar/setting.png" alt="Settings" width={24} height={24} />, label: "Settings", path: "/settings" },
   ]
 
   const handleMenuClick = (path: string) => {
@@ -76,7 +77,7 @@ export function Sidebar() {
                 }}
               >
                 <ListItemIcon sx={{ minWidth: 36 }}>
-                  <item.icon sx={{ color: "secondary.main", fontSize: 16 }} />
+                  {item.icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={item.label}
