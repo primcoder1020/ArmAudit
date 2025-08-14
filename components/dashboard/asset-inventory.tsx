@@ -117,13 +117,13 @@ export function AssetInventory() {
               },
             }}
           >
-            {label}
+            {typeof label === 'function' ? label({} as any) : label}
             {count !== "0" && (
               <Chip
                 label={count}
                 size="small"
                 sx={{
-                  bgcolor: color,
+                  bgcolor: typeof color === 'function' ? color({} as any) : color,
                   color: count === "0" ? "text.secondary" : "white",
                   ml: 1,
                   height: 16,

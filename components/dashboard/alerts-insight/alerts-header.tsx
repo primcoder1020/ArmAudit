@@ -52,7 +52,7 @@ export function AlertsHeader() {
             label="Time Period"
             options={timeOptions}
             value={filters.timeFilter}
-            onChange={(value) => updateFilter("timeFilter", value)}
+            onChange={(value) => updateFilter("timeFilter", Array.isArray(value) ? value[0] || "" : value)}
             icon={<CalendarToday sx={{ fontSize: 16 }} />}
           />
 
@@ -60,7 +60,7 @@ export function AlertsHeader() {
             label="Keywords"
             options={keywordOptions}
             value={filters.keywordFilter}
-            onChange={(value) => updateFilter("keywordFilter", value)}
+            onChange={(value) => updateFilter("keywordFilter", Array.isArray(value) ? value[0] || "" : value)}
             icon={<TrendingUp sx={{ fontSize: 16 }} />}
           />
         </Box>
