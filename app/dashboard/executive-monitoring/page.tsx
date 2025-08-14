@@ -100,7 +100,7 @@ export default function ExecutiveMonitoringPage() {
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {executiveStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid xs={12} sm={6} md={3} key={index}>
             <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -132,7 +132,7 @@ export default function ExecutiveMonitoringPage() {
 
       <Grid container spacing={3}>
         {/* Executive Profiles */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -184,10 +184,10 @@ export default function ExecutiveMonitoringPage() {
         </Grid>
 
         {/* Recent Alerts & Monitoring Coverage */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Grid container spacing={3}>
             {/* Recent Alerts */}
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -231,7 +231,7 @@ export default function ExecutiveMonitoringPage() {
             </Grid>
 
             {/* Monitoring Coverage */}
-            <Grid item xs={12}>
+            <Grid xs={12}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>

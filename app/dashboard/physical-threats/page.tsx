@@ -64,7 +64,7 @@ export default function PhysicalThreatsPage() {
       {/* Stats Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         {threatStats.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+          <Grid xs={12} sm={6} md={3} key={index}>
             <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -96,7 +96,7 @@ export default function PhysicalThreatsPage() {
 
       <Grid container spacing={3}>
         {/* Active Incidents */}
-        <Grid item xs={12} md={8}>
+        <Grid xs={12} md={8}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>
@@ -149,7 +149,7 @@ export default function PhysicalThreatsPage() {
         </Grid>
 
         {/* Security Zones */}
-        <Grid item xs={12} md={4}>
+        <Grid xs={12} md={4}>
           <Card sx={{ height: "100%" }}>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>

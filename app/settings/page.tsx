@@ -74,7 +74,7 @@ export default function SettingsPage() {
 
       <Grid container spacing={3}>
         {/* Settings Categories */}
-        <Grid item xs={12} md={8}>
+        <Grid xs={12} md={8}>
           {settingsCategories.map((category, categoryIndex) => (
             <Card key={categoryIndex} sx={{ mb: 3 }}>
               <CardContent>
@@ -109,7 +109,7 @@ export default function SettingsPage() {
         </Grid>
 
         {/* Profile & API Keys */}
-        <Grid item xs={12} md={4}>
+        <Grid xs={12} md={4}>
           {/* User Profile */}
           <Card sx={{ mb: 3 }}>
             <CardContent>

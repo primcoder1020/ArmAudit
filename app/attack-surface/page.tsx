@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
-import { Box, Typography, Card, CardContent, Grid, Chip, LinearProgress } from "@mui/material"
-import { Security, Public, Warning, TrendingUp } from "@mui/icons-material"
+import { Security } from "@mui/icons-material"
+import { Box, Card, CardContent, Chip, Typography, Grid } from "@mui/material"
 
 export default function AttackSurfacePage() {
   const attackSurfaceData = [
@@ -32,34 +31,32 @@ export default function AttackSurfacePage() {
       </Box>
 
       {/* Stats Cards */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 3, mb: 4 }}>
         {attackSurfaceData.map((item, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ height: "100%" }}>
-              <CardContent>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <Security sx={{ color: item.color, mr: 1 }} />
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    {item.count}
-                  </Typography>
-                </Box>
-                <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
-                  {item.title}
+          <Card key={index} sx={{ height: "100%" }}>
+            <CardContent>
+              <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                <Security sx={{ color: item.color, mr: 1 }} />
+                <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  {item.count}
                 </Typography>
-                <Chip 
-                  label={item.risk} 
-                  size="small" 
-                  sx={{ 
-                    bgcolor: item.color, 
-                    color: "white",
-                    fontSize: "11px"
-                  }} 
-                />
-              </CardContent>
-            </Card>
-          </Grid>
+              </Box>
+              <Typography variant="body2" sx={{ color: "#6b7280", mb: 1 }}>
+                {item.title}
+              </Typography>
+              <Chip 
+                label={item.risk} 
+                size="small" 
+                sx={{ 
+                  bgcolor: item.color, 
+                  color: "white",
+                  fontSize: "11px"
+                }} 
+              />
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
 
       {/* Recent Findings */}
       <Card>
